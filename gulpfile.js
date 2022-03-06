@@ -1,12 +1,9 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass')(require('sass'));
-var header = require('gulp-header');
-var cleanCSS = require('gulp-clean-css');
-var rename = require("gulp-rename");
-var uglify = require('gulp-uglify');
-var autoprefixer = require('gulp-autoprefixer');
-var pkg = require('./package.json');
-var browserSync = require('browser-sync').create();
+const gulp = require ('gulp');
+const sass = require ('gulp-sass')(require ('sass'));
+const cleanCSS = require ('gulp-clean-css');
+const rename = require ("gulp-rename");
+const uglify = require ('gulp-uglify');
+const browserSync = require ('browser-sync').create ();
 
 // Copy third party libraries from /node_modules into /vendor
 gulp.task('vendor', function() {
@@ -46,9 +43,6 @@ gulp.task('css:compile', function() {
     .pipe(sass.sync({
       outputStyle: 'expanded'
     }).on('error', sass.logError))
-    .pipe(header(banner, {
-      pkg: pkg
-    }))
     .pipe(gulp.dest('./css'))
 });
 
@@ -78,9 +72,6 @@ gulp.task('js:minify', function() {
     .pipe(uglify())
     .pipe(rename({
       suffix: '.min'
-    }))
-    .pipe(header(banner, {
-      pkg: pkg
     }))
     .pipe(gulp.dest('./js'))
     .pipe(browserSync.stream());
